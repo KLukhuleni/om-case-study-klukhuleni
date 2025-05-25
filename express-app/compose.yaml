@@ -1,1 +1,9 @@
-# Add code here
+version: '3.8'
+
+services:
+  express-app:
+    build: .
+    ports:
+      - "4567:4567"
+    container_name: express-app-container
+    restart: unless-stopped

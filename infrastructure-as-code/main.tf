@@ -1,11 +1,13 @@
 
 
-variable "files" {
-  default = 5
+variable "file_indices" {
+  description = "List of file indices to create"
+  type        = list(number)
+  default     = [0, 2, 3, 4]
 }
 
 resource "local_file" "foo" {
-  count    = var.files
-  content  = "# Some content for file ${count.index}"
-  filename = "file${count.index}.txt"
+  for_each = { for idx in var.file_indices : idx => idx }
+  content  = "${each.value}"
+  filename = "file${each.value}.txt"
 }
